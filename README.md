@@ -8,5 +8,3 @@ Explanation and time analysis:
 - The time complexity of this algorithm is O(mn) since we iterate over each cell in the matrix once.
 - The scoring matrix is used to assign scores for matches, mismatches, insertions, and deletions.
 - The resulting alignment for the given sequences x and y is printed at the end.
-
-
