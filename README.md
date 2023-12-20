@@ -9,4 +9,4 @@ Explanation and time analysis:
 - The scoring matrix is used to assign scores for matches, mismatches, insertions, and deletions.
 - The resulting alignment for the given sequences x and y is printed at the end.
 
-This program should work with other sequences and scoring matrices as well.
+
