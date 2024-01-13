@@ -8,7 +8,7 @@ Explanation and time analysis:
 - The time complexity of this algorithm is O(mn) since we iterate over each cell in the matrix once.
 - The scoring matrix is used to assign scores for matches, mismatches, insertions, and deletions.
 - The resulting alignment for the given sequences x and y is printed at the end.
-ass3 
+ASS 3
 To determine whether an undirected graph is a tree, you need to check two conditions:
 
 Connectedness: A tree is a connected graph, meaning that there is a path between any pair of nodes in the graph.
