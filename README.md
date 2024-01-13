@@ -18,3 +18,16 @@ Connectedness: A tree is a connected graph, meaning that there is a path between
 Acyclic: A tree is an acyclic graph, which means there are no cycles in the graph.
 
 The running time for this algorithm depends on the method. If  a depth-first search (DFS) or breadth-first search (BFS) algorithm, the time complexity would be O(V + E), where V is the number of vertices and E is the number of edges in the graph.
+To determine whether an undirected graph is a tree, you need to check two conditions:
+
+1. **Connectedness:** A tree is a connected graph, meaning that there is a path between any pair of nodes in the graph.
+
+2. **Acyclic:** A tree is an acyclic graph, which means there are no cycles in the graph.
+
+You can use a Depth-First Search (DFS) or Breadth-First Search (BFS) to check these conditions:
+
+1. **Connectedness:** Start a DFS or BFS from any node and visit all nodes. If the traversal covers all nodes, the graph is connected.
+
+2. **Acyclic:** During the DFS or BFS, check for the presence of backward edges or cycles. If, at any point, you encounter an already visited node that is not the parent of the current node (in the case of DFS), or if you find a node with more than one parent (in the case of BFS), the graph has a cycle.
+
+The running time of this algorithm is O(V + E), where V is the number of vertices and E is the number of edges in the graph. Both the DFS and BFS traversal take O(V + E) time, and the cycle check adds a constant factor to the time complexity. This is efficient for most practical scenarios, especially when the graph is sparse.
