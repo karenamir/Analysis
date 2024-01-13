@@ -1,0 +1,157 @@
+import java.sql.Array;
+import java.util.*;
+
+public class Assignment3 {
+    public static ArrayList<ArrayList<Integer>> cycles;
+    public static boolean[] done;
+    public static boolean containCycles(ArrayList<ArrayList<Integer>> graph){
+        cycles = new ArrayList<>();
+        ArrayList<Integer> curr= new ArrayList<>();
+        done = new boolean[graph.size()+1];
+        for(int i =1;i<graph.size()+1;i++)
+        {
+            curr.add(i);
+            helper(i,i, new boolean[graph.size()+1],curr, graph);
+            curr.remove(curr.size()-1);
+            done[i]=true;
+        }
+        if(cycles.isEmpty())
+            return false;
+        System.out.print(cycles);
+        return true;
+    }
+    public static void helper(int node, int parent,boolean[] seen, ArrayList<Integer> path ,ArrayList<ArrayList<Integer>> graph){
+//        System.out.print(path);
+        seen[node]=true;
+        for(Integer child: graph.get(node-1))
+        {
+            if(parent==child) {
+                ArrayList<Integer> curr = new ArrayList<>(path);
+                curr.add(parent);
+                cycles.add(curr);
+            }
+            else if(!seen[child] && !done[child])
+            {
+                path.add(child);
+                helper(child, parent,seen, path, graph);
+                path.remove(path.size()-1);
+            }
+        }
+    }
+
+
+//    public static boolean isBipartite(ArrayList<ArrayList<Integer>> graph){
+//
+//    }
+    public static void main(String[] args){
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(3);
+        list.add(4);
+        graph.add(list);
+
+        ArrayList<Integer> list2 = new ArrayList<>();
+
+        graph.add(list2);
+        ArrayList<Integer> list3 = new ArrayList<>();
+
+        graph.add(list3);
+
+        ArrayList<Integer> list4 = new ArrayList<>();
+
+
+        graph.add(list4);
+
+        System.out.println(containCycles(graph));
+
+
+    }
+}
+
+ class Graph {
+     private Map<Integer, List<Integer>> adjList;
+     private boolean[] visited;
+     private Set<String> visitedCycles;
+     private List<List<Integer>> cycles;
+
+     public Graph(int vertices) {
+         this.adjList = new HashMap<>();
+         for (int v = 1; v <= vertices; v++) {
+             adjList.put(v, new LinkedList<>());
+         }
+         this.visited = new boolean[vertices + 1];
+
+         visitedCycles = new HashSet<>();
+         cycles = new LinkedList<>();
+     }
+
+     public void addEdge(int from, int to) {
+         adjList.get(from).add(to);
+     }
+
+     public List<Integer> bfs(int start) {
+         List<Integer> order = new ArrayList<>();
+         Queue<Integer> queue = new LinkedList<>();
+         queue.add(start);
+         visited[start] = true;
+         while (!queue.isEmpty()) {
+             int v = queue.remove();
+             order.add(v);
+             for (int w : adjList.get(v)) {
+                 if (!visited[w]) {
+                     visited[w] = true;
+                     queue.add(w);
+                 }
+             }
+         }
+         Arrays.fill(visited, false); // Reset visited for the next call
+         return order;
+     }
+
+     public List<Integer> dfs(int start) {
+         List<Integer> order = new ArrayList<>();
+         dfsHelper(start, order);
+         Arrays.fill(visited, false); // Reset visited for the next call
+         return order;
+     }
+
+     private void dfsHelper(int v, List<Integer> order) {
+         visited[v] = true;
+         order.add(v);
+         for (int w : adjList.get(v)) {
+             if (!visited[w]) {
+                 dfsHelper(w, order);
+             }
+         }
+     }
+
+     public boolean isBipartite() {
+         int[] color = new int[adjList.size() + 1];
+         Arrays.fill(color, -1);
+         for (int v = 1; v <= adjList.size(); v++) {
+             if (color[v] == -1) {
+                 if (!isBipartitehelper(v, color)) {
+                     return false;
+                 }
+             }
+         }
+         return true;
+     }
+
+     private boolean isBipartitehelper(int v, int[] color) {
+         if (color[v] == -1) {
+             color[v] = 1;
+         }
+         for (int w : adjList.get(v)) {
+             if (color[w] == -1) {
+                 color[w] = 1 - color[v];
+                 if (!isBipartitehelper(w, color)) {
+                     return false;
+                 }
+             } else if (color[w] == color[v]) {
+                 return false;
+             }
+         }
+         return true;
+     }
+ }
